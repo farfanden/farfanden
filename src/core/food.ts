@@ -23,22 +23,25 @@ export default class Food {
 
     randomizePosition(index: number, snake?: Point[]) {
         if(snake) {
-            let possibleFoodLocations = [];
+            let colliding = true;
 
-            for (let row = 0; row < this.gridSize; row++) {
-                for (let column = 0; column < this.gridSize; column++) {
-                    let isLocationValid = snake.every(bodyPart => {
-                        return row !== bodyPart.y || column !== bodyPart.x;
-                    });
+            let new_x, new_y; 
             
-                    if (isLocationValid) {
-                        possibleFoodLocations.push({ x: column, y: row });
+            while(colliding) {
+                colliding = false;
+                new_y = Math.floor(Math.random() * this.gridSize);
+                new_x = Math.floor(Math.random() * this.gridSize);
+            
+                for (let box of snake) {
+                    if (new_x == box.x && new_y == box.y) {
+                        colliding = true;
+                        break;
                     }
                 }
             }
-            const newSpawnLoc = possibleFoodLocations[Math.floor(Math.random() * possibleFoodLocations.length -1)]
-            this.x = newSpawnLoc.x;
-            this.y = newSpawnLoc.x;
+            
+            this.x = new_x as number;
+            this.y = new_y as number;
         } else {
             this.x = Math.floor(Math.random() * this.gridSize);
             this.y = Math.floor(Math.random() * this.gridSize);
