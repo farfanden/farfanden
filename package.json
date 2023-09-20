@@ -1,5 +1,6 @@
 {
-  "name": "korg",
+  "homepage": "https://farfanden.github.io",
+  "name": "b-day",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
